@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  email     String
+  phone     String
+  createdAt DateTime @default(now())
+}
+
+model Config {
+  id        String   @id @default("global")
+  zaloLink  String?
+}
