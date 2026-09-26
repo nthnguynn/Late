@@ -14,6 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ngaleader.com"),
   title: "Tạ Thị Nga | Nga Leader",
   description:
     "Website của Tạ Thị Nga – Thử thách 2 ngày Affiliate: xây dòng tiền 100 triệu/tháng chỉ bằng chiếc điện thoại.",

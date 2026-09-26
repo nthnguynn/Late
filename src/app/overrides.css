@@ -106,14 +106,14 @@ html {
 }
 
 /* ---------- Ảnh chân dung ---------- */
-img[src="/ta-thi-nga.jpg"] {
+img[src*="chan-dung"] {
   border-radius: 18px !important;
   box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.45);
 }
 
-.c-image:has(img[src="/ta-thi-nga.jpg"]),
-.c-image:has(img[src="/ta-thi-nga.jpg"]) .image-container,
-.c-column:has(> .inner > .c-image img[src="/ta-thi-nga.jpg"]) {
+.c-image:has(img[src*="chan-dung"]),
+.c-image:has(img[src*="chan-dung"]) .image-container,
+.c-column:has(> .inner > .c-image img[src*="chan-dung"]) {
   background: transparent !important;
 }
 
