@@ -1,0 +1,321 @@
+/* Popup đăng ký + thanh đăng ký dính đáy (mobile) */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(20, 20, 24, 0.62);
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.18s ease-out;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.45);
+  font-family: "Montserrat", var(--montserrat), sans-serif;
+  color: #1a1a1a;
+  animation: popIn 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: #555;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.close:hover {
+  background: #fff;
+  color: #000;
+}
+
+.header {
+  padding: 28px 28px 20px;
+  text-align: center;
+  background: linear-gradient(160deg, #fde2ec 0%, #fff5f8 70%);
+  border-radius: 20px 20px 0 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background: #e8558a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-family: "Oswald", var(--oswald), sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 28px 26px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.label::after {
+  content: " *";
+  color: #e8558a;
+}
+
+.input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1.5px solid #e2e2e6;
+  border-radius: 12px;
+  background: #fafafa;
+  font: inherit;
+  font-size: 16px; /* >=16px để iPhone không tự phóng to khi gõ */
+  color: #111;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3e9c7a;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(62, 156, 122, 0.15);
+}
+
+.submit {
+  margin-top: 6px;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #46ad88, #3a9474);
+  color: #fff;
+  font-family: "Oswald", var(--oswald), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 12px 24px -10px rgba(38, 120, 90, 0.7);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.error {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fdecec;
+  color: #c62828;
+  font-size: 14px;
+  text-align: center;
+}
+
+.privacy {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+/* Màn hình đăng ký thành công */
+.success {
+  padding: 36px 28px 28px;
+  text-align: center;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #3e9c7a;
+  color: #fff;
+  font-size: 34px;
+  font-weight: 700;
+  box-shadow: 0 0 0 8px rgba(62, 156, 122, 0.15);
+}
+
+.successTitle {
+  margin: 0 0 14px;
+  font-family: "Oswald", var(--oswald), sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.successText {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.zaloButton {
+  display: block;
+  margin: 18px 0 12px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: #0068ff;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 12px 24px -10px rgba(0, 104, 255, 0.7);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.zaloButton:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.successNote {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+  color: #777;
+}
+
+/* Thanh đăng ký dính đáy màn hình – chỉ hiện trên điện thoại */
+.stickyBar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .stickyBar {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .stickyButton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #46ad88, #3a9474);
+    color: #fff;
+    font-family: "Oswald", var(--oswald), sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    box-shadow: 0 10px 22px -10px rgba(38, 120, 90, 0.75);
+  }
+
+  .stickyButton small {
+    font-family: "Montserrat", var(--montserrat), sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 0.92;
+  }
+
+  .header {
+    padding: 26px 20px 18px;
+  }
+
+  .form,
+  .success {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modal {
+    animation: none;
+  }
+}

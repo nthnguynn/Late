@@ -1,132 +1,123 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 import { bodyHtml } from './bodyHtml';
+import styles from './ClientPage.module.css';
+
+type FormData = { fullName: string; phone: string; email: string; };
+type Status = "idle" | "loading" | "success" | "error";
 
 interface MyFormProps {
-  formData: { fullName: string; phone: string; email: string; };
-  setFormData: React.Dispatch<React.SetStateAction<{ fullName: string; phone: string; email: string; }>>;
-  status: "idle" | "loading" | "success" | "error";
+  formData: FormData;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  status: Status;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   zaloLink: string;
 }
 
 const MyForm: React.FC<MyFormProps> = ({ formData, setFormData, status, handleSubmit, zaloLink }) => {
   if (status === "success") {
+    const hasZalo = zaloLink !== '' && zaloLink !== '#';
     return (
-      <div style={{ textAlign: "center", padding: "20px", fontFamily: "var(--montserrat), sans-serif", color: "#000" }}>
-        <h1 style={{ 
-          fontFamily: "var(--oswald), sans-serif", 
-          fontSize: "48px", 
-          fontWeight: "900", 
-          textTransform: "uppercase", 
-          margin: "0 0 20px 0",
-          letterSpacing: "2px",
-          textDecoration: "underline",
-          textDecorationThickness: "5px",
-          textUnderlineOffset: "5px"
-        }}>
-          CHÚC MỪNG!
-        </h1>
-        
-        <p style={{ fontSize: "16px", lineHeight: "1.5", marginBottom: "20px" }}>
-          Bạn đã đăng ký thành công, Chúng tôi sẽ gửi toàn bộ lịch học, thông tin quà tặng, tài liệu... cho bạn vào trong <strong>một nhóm zalo duy nhất</strong>
+      <div className={styles.success}>
+        <div className={styles.successIcon} aria-hidden="true">✓</div>
+        <h2 className={styles.successTitle}>Chúc mừng!</h2>
+        <p className={styles.successText}>
+          Bạn đã đăng ký thành công. Toàn bộ lịch học, quà tặng và tài liệu sẽ được gửi vào{' '}
+          <strong>một nhóm Zalo duy nhất</strong>.
         </p>
-        
-        <p style={{ fontSize: "16px", lineHeight: "1.5", marginBottom: "15px" }}>
-          <strong>Bước cuối cùng:</strong> Để được vào nhóm ZALO lớp học ngay bây giờ; Bạn <span style={{ color: "#007BFF", fontWeight: "bold" }}>bấm nút màu xanh</span> bên dưới
+        <p className={styles.successText}>
+          <strong>Bước cuối cùng:</strong> bấm nút xanh bên dưới để vào nhóm Zalo lớp học ngay bây giờ.
         </p>
-        
-        <p style={{ fontSize: "14px", fontStyle: "italic", marginBottom: "20px" }}>
-          (Nhanh tay chúng tôi chỉ duyệt thành viên trong 3 phút kể từ bây giờ)
-        </p>
-        
-        <a 
-          href={zaloLink && zaloLink !== '' ? zaloLink : '#'}
-          target={zaloLink && zaloLink !== '' ? "_blank" : "_self"}
+        <a
+          className={styles.zaloButton}
+          href={hasZalo ? zaloLink : '#'}
+          target={hasZalo ? "_blank" : "_self"}
           rel="noopener noreferrer"
-          style={{ 
-            display: "inline-block",
-            backgroundColor: "#007BFF", 
-            color: "white", 
-            padding: "15px 30px", 
-            border: "none", 
-            borderRadius: "4px", 
-            fontSize: "20px", 
-            fontWeight: "bold", 
-            textDecoration: "none",
-            cursor: "pointer",
-            marginBottom: "20px"
-          }}
         >
-          BẤM ĐÂY ĐỂ VÀO NHÓM ZALO
+          Bấm vào đây để vào nhóm Zalo
         </a>
+        <p className={styles.successNote}>(Chúng tôi chỉ duyệt thành viên trong 3 phút kể từ bây giờ)</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', padding: '20px' }}>
-      <div>
-        <label style={{ fontWeight: 'bold' }}>Họ và Tên *</label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label className={styles.field}>
+        <span className={styles.label}>Họ và tên</span>
         <input
+          className={styles.input}
           type="text"
+          name="name"
+          autoComplete="name"
+          placeholder="Nguyễn Thị A"
           required
           value={formData.fullName}
           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-          style={{ width: '100%', padding: '10px', marginTop: '5px', border: '1px solid #ccc', borderRadius: '4px' }}
         />
-      </div>
-      <div>
-        <label style={{ fontWeight: 'bold' }}>Số Điện Thoại *</label>
+      </label>
+      <label className={styles.field}>
+        <span className={styles.label}>Số điện thoại (Zalo)</span>
         <input
+          className={styles.input}
           type="tel"
+          name="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          placeholder="09xx xxx xxx"
           required
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          style={{ width: '100%', padding: '10px', marginTop: '5px', border: '1px solid #ccc', borderRadius: '4px' }}
         />
-      </div>
-      <div>
-        <label style={{ fontWeight: 'bold' }}>Email *</label>
+      </label>
+      <label className={styles.field}>
+        <span className={styles.label}>Email</span>
         <input
+          className={styles.input}
           type="email"
+          name="email"
+          autoComplete="email"
+          placeholder="ban@gmail.com"
           required
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          style={{ width: '100%', padding: '10px', marginTop: '5px', border: '1px solid #ccc', borderRadius: '4px' }}
         />
-      </div>
-      <button 
-        type="submit" 
-        disabled={status === "loading"}
-        style={{ 
-          backgroundColor: '#FF0085', 
-          color: 'white', 
-          padding: '15px', 
-          border: 'none', 
-          borderRadius: '4px', 
-          fontSize: '18px', 
-          fontWeight: 'bold', 
-          cursor: 'pointer' 
-        }}
-      >
-        {status === "loading" ? "ĐANG XỬ LÝ..." : "HOÀN TẤT ĐĂNG KÝ"}
+      </label>
+      <button type="submit" className={styles.submit} disabled={status === "loading"}>
+        {status === "loading" ? "Đang xử lý..." : "Hoàn tất đăng ký"}
       </button>
       {status === "error" && (
-        <div style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
-          Có lỗi xảy ra, vui lòng thử lại!
-        </div>
+        <div className={styles.error} role="alert">Có lỗi xảy ra, vui lòng thử lại!</div>
       )}
+      <p className={styles.privacy}>🔒 Thông tin của bạn được bảo mật tuyệt đối.</p>
     </form>
   );
 };
 
 export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?: string }) {
-  const [formData, setFormData] = useState({ fullName: "", phone: "", email: "" });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formData, setFormData] = useState<FormData>({ fullName: "", phone: "", email: "" });
+  const [status, setStatus] = useState<Status>("idle");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setStatus("idle");
+    setIsModalOpen(true);
+  };
+
+  // Khoá cuộn trang và cho phép đóng bằng phím Esc khi popup đang mở
+  useEffect(() => {
+    if (!isModalOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsModalOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [isModalOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,7 +136,7 @@ export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?:
       } else {
         setStatus("error");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
     }
   };
@@ -156,58 +147,36 @@ export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?:
     const isButton = target.closest('button') || target.closest('[id^="button-"]');
     if (isButton) {
       e.preventDefault();
-      setStatus("idle");
-      setIsModalOpen(true);
+      openModal();
     }
   };
 
   return (
     <>
       {isModalOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          backgroundColor: 'rgba(0,0,0,0.6)',
-          zIndex: 99999,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }} onClick={() => setIsModalOpen(false)}>
-          <div style={{
-            backgroundColor: 'white',
-            padding: '30px',
-            borderRadius: '10px',
-            width: '90%',
-            maxWidth: '500px',
-            position: 'relative',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
-          }} onClick={(e) => e.stopPropagation()}>
-            <button 
-              onClick={() => setIsModalOpen(false)}
-              style={{
-                position: 'absolute',
-                top: '10px',
-                right: '15px',
-                background: 'none',
-                border: 'none',
-                fontSize: '24px',
-                cursor: 'pointer',
-                color: '#666'
-              }}
-            >
+        <div className={styles.overlay} onClick={() => setIsModalOpen(false)}>
+          <div
+            className={styles.modal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="nga-modal-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className={styles.close} onClick={() => setIsModalOpen(false)} aria-label="Đóng">
               &times;
             </button>
-            <h3 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '24px', fontWeight: 'bold', color: '#333' }}>
-              Tham gia thử thách Affiliate
-            </h3>
-            <MyForm 
-              formData={formData} 
-              setFormData={setFormData} 
-              status={status} 
-              handleSubmit={handleSubmit} 
+            {status !== "success" && (
+              <div className={styles.header}>
+                <span className={styles.badge}>Miễn phí · Chỉ 7 suất</span>
+                <h3 id="nga-modal-title" className={styles.title}>Tham gia thử thách 2 ngày Affiliate</h3>
+                <p className={styles.subtitle}>Điền thông tin để giữ chỗ và nhận bộ quà tặng 125.970.000đ</p>
+              </div>
+            )}
+            <MyForm
+              formData={formData}
+              setFormData={setFormData}
+              status={status}
+              handleSubmit={handleSubmit}
               zaloLink={initialZaloLink}
             />
           </div>
@@ -217,6 +186,15 @@ export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?:
       <div onClick={handlePageClick}>
         {parse(bodyHtml)}
       </div>
+
+      {!isModalOpen && (
+        <div className={styles.stickyBar}>
+          <button type="button" className={styles.stickyButton} onClick={openModal}>
+            Đăng ký miễn phí ngay
+            <small>Chỉ còn 7 suất · Nhận quà 125.970.000đ</small>
+          </button>
+        </div>
+      )}
     </>
   );
 }
