@@ -121,3 +121,9 @@ img[src="/ta-thi-nga.jpg"] {
 @media (max-width: 767px) {
   body { padding-bottom: 84px; }
 }
+
+/* Ảnh bìa quà tặng / bài học (public/images) */
+img[src^="/images/"] {
+  border-radius: 18px !important;
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.45);
+}
