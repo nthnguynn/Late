@@ -1,0 +1,42 @@
+/*
+ * Chỉnh bố cục cho trang clone.
+ * Ảnh mẫu (via.placeholder.com) đã chết nên bị ẩn đi; khi thay bằng ảnh thật
+ * thì các quy tắc bên dưới tự hết tác dụng và ảnh hiện lại bình thường.
+ */
+
+/* Ẩn ảnh mẫu bị hỏng */
+.c-image:has(img[src*="via.placeholder.com"]) {
+  display: none !important;
+}
+
+/* Ẩn cột chỉ chứa ảnh mẫu (không có chữ / nút) */
+.c-column:has(img[src*="via.placeholder.com"]):not(:has(.c-heading, .c-sub-heading, .c-paragraph, .c-button, .c-bullet-list)) {
+  display: none !important;
+}
+
+/* Cột chữ còn lại trong hàng đó giãn ra và căn giữa, giới hạn độ rộng cho dễ đọc */
+.c-row:has(> .inner > .c-column img[src*="via.placeholder.com"]) > .inner > .c-column {
+  flex: 1 1 0 !important;
+  width: auto !important;
+  max-width: 820px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Ảnh ẩn đi từng làm khoảng đệm phía trên nút – bù lại để nút không dính vào khối trên */
+.c-image:has(img[src*="via.placeholder.com"]) + .c-button,
+.c-row:has(img[src*="via.placeholder.com"]) .c-button {
+  margin-top: 20px !important;
+}
+
+/* Chữ tiếng Việt dễ đọc hơn, không bị tràn ngang */
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.c-paragraph,
+.c-bullet-list {
+  overflow-wrap: break-word;
+}

@@ -35,7 +35,7 @@ const MyForm: React.FC<MyFormProps> = ({ formData, setFormData, status, handleSu
         </p>
         
         <p style={{ fontSize: "16px", lineHeight: "1.5", marginBottom: "15px" }}>
-          <strong>Bước cuối cùng:</strong> Để được vào nhóm ZALO lớp học ngay bây giờ; Bạn <span style={{ color: "#007BFF", fontWeight: "bold" }}>bấm nút màu xanh</span> bên dưới, hoặc quét mã <strong>QR-code</strong>
+          <strong>Bước cuối cùng:</strong> Để được vào nhóm ZALO lớp học ngay bây giờ; Bạn <span style={{ color: "#007BFF", fontWeight: "bold" }}>bấm nút màu xanh</span> bên dưới
         </p>
         
         <p style={{ fontSize: "14px", fontStyle: "italic", marginBottom: "20px" }}>
@@ -62,15 +62,6 @@ const MyForm: React.FC<MyFormProps> = ({ formData, setFormData, status, handleSu
         >
           BẤM ĐÂY ĐỂ VÀO NHÓM ZALO
         </a>
-        
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          {/* QR code image placeholder */}
-          <img 
-            src="https://via.placeholder.com/300x300.png?text=QR+Zalo+Cua+Ban" 
-            alt="Mã QR Zalo" 
-            style={{ width: "250px", height: "250px", objectFit: "contain", border: "1px solid #eee", padding: "10px", borderRadius: "8px" }} 
-          />
-        </div>
       </div>
     );
   }

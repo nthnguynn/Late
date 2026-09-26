@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Oswald, Montserrat } from "next/font/google";
 import "./globals.css";
+import "./overrides.css";
 
 const oswald = Oswald({
   variable: "--oswald",
@@ -13,14 +14,15 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Anh Pham Leader",
-  description: "Anh Pham Leader Funnel Clone",
+  title: "Tạ Thị Nga",
+  description:
+    "Website của Tạ Thị Nga – Thử thách 2 ngày Affiliate: xây dòng tiền 100 triệu/tháng chỉ bằng chiếc điện thoại.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang="vi"
       className={`${oswald.variable} ${montserrat.variable}`}
     >
       <body>{children}</body>
