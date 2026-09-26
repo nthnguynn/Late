@@ -50,9 +50,24 @@ export default function CMSPage() {
   const [search, setSearch] = useState('');
   const [isExporting, setIsExporting] = useState(false);
 
+  // Phiên đăng nhập hết hạn → quay về trang đăng nhập
+  const redirectIfLoggedOut = (res: Response) => {
+    if (res.status === 401) {
+      window.location.href = '/cms/login?next=/cms';
+      throw new Error('Chưa đăng nhập');
+    }
+    return res;
+  };
+
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
+    window.location.href = '/cms/login';
+  };
+
   useEffect(() => {
     // Fetch Zalo config
     fetch('/api/config')
+      .then(redirectIfLoggedOut)
       .then((res) => res.json())
       .then((data) => {
         if (data && data.zaloLink) {
@@ -63,6 +78,7 @@ export default function CMSPage() {
 
     // Fetch Leads
     fetch('/api/leads')
+      .then(redirectIfLoggedOut)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -161,7 +177,16 @@ export default function CMSPage() {
 
   return (
     <div style={{ fontFamily: 'var(--montserrat), sans-serif', padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '30px' }}>Trang Quản Trị (CMS)</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '30px' }}>
+        <h1 style={{ fontSize: '32px', fontWeight: 'bold', margin: 0 }}>Trang Quản Trị (CMS)</h1>
+        <button
+          type="button"
+          onClick={handleLogout}
+          style={{ padding: '8px 16px', border: '1px solid #ccc', borderRadius: '6px', background: '#fff', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600 }}
+        >
+          Đăng xuất
+        </button>
+      </div>
 
       <section style={{ marginBottom: '50px', backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '8px', border: '1px solid #ddd' }}>
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Cấu Hình Hệ Thống</h2>

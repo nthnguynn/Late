@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { isAdminRequest } from '@/lib/auth';
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+const unauthorized = () => NextResponse.json({ error: 'Chưa đăng nhập' }, { status: 401 });
+
+export async function GET(request: Request) {
+  if (!isAdminRequest(request)) return unauthorized();
   try {
     let config = await prisma.config.findUnique({
       where: { id: 'global' },
@@ -26,6 +30,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!isAdminRequest(request)) return unauthorized();
   try {
     const body = await request.json();
     const { zaloLink } = body;
