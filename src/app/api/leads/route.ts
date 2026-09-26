@@ -8,18 +8,20 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { fullName, phone, email } = body;
 
-    if (!fullName || !phone || !email) {
+    if (typeof fullName !== 'string' || !fullName.trim() || fullName.length > 100 ||
+        typeof phone !== 'string' || !/^(?:0|\+84)[0-9]{9}$/.test(phone.replace(/[\s.-]/g, '')) ||
+        typeof email !== 'string' || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
-        { error: 'Thiếu thông tin bắt buộc' },
+        { error: 'Vui lòng kiểm tra họ tên, số điện thoại Việt Nam và email.' },
         { status: 400 }
       );
     }
 
     const lead = await prisma.lead.create({
       data: {
-        fullName,
-        phone,
-        email,
+        fullName: fullName.trim(),
+        phone: phone.replace(/[\s.-]/g, ''),
+        email: email.trim(),
       },
     });
 
