@@ -9,8 +9,6 @@ import { getCountdownRemaining } from './campaign';
 type FormData = { fullName: string; phone: string; email: string };
 type Status = 'idle' | 'loading' | 'success' | 'error';
 const LandingContent = memo(function LandingContent() { return <>{parse(bodyHtml)}</>; });
-const POPUP_SCROLL_DISTANCE = 600;
-const POPUP_COOLDOWN_MS = 15000;
 
 function Countdown({ remaining, compact = false }: { remaining: number | null; compact?: boolean }) {
   if (remaining === null) return <span className={styles.openLabel}>Đăng ký miễn phí · Nhận lịch học qua Zalo</span>;
@@ -30,13 +28,9 @@ export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?:
   const [remaining, setRemaining] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const content = useRef<HTMLDivElement>(null);
-  const prompted = useRef(false);
   const submitting = useRef(false);
-  const lastPopupClosedAt = useRef(0);
   const hasZalo = /^https:\/\/zalo\.me\/.+/i.test(initialZaloLink);
   const openModal = useCallback(() => {
-    prompted.current = true;
-    try { sessionStorage.setItem('nga-registration-prompted', '1'); } catch { /* Storage may be unavailable. */ }
     setIsModalOpen(true);
   }, []);
 
@@ -70,7 +64,6 @@ export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?:
     modal?.showModal();
     window.scrollTo({ ...scrollPosition, behavior: 'instant' });
     return () => {
-      lastPopupClosedAt.current = Date.now();
       modal?.close();
       document.body.style.overflow = previousOverflow;
       root.style.overflow = previousRootOverflow;
@@ -80,36 +73,6 @@ export default function ClientPage({ initialZaloLink = '' }: { initialZaloLink?:
     };
   }, [isModalOpen]);
 
-  useEffect(() => {
-    if (isModalOpen || status === 'success' || status === 'loading') return;
-    try {
-      if (sessionStorage.getItem('nga-registration-completed') === '1') return;
-    } catch { /* Optional storage. */ }
-
-    // Measure from the last dismissal; scrolling the dialog does not count.
-    const scrollStart = window.scrollY;
-    let opened = false;
-    const canPrompt = () => !opened && !submitting.current && !document.hidden &&
-      !document.activeElement?.matches('input, textarea, select, [contenteditable="true"]') &&
-      Date.now() - lastPopupClosedAt.current >= POPUP_COOLDOWN_MS;
-    const invite = () => {
-      opened = true;
-      openModal();
-    };
-    const onScroll = () => {
-      if (window.scrollY - scrollStart >= POPUP_SCROLL_DISTANCE && canPrompt()) invite();
-    };
-    const timer = window.setTimeout(() => {
-      let seen = prompted.current;
-      try { seen = seen || sessionStorage.getItem('nga-registration-prompted') === '1'; } catch { /* Optional storage. */ }
-      if (!seen && canPrompt()) invite();
-    }, 25000);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [isModalOpen, status, openModal]);
 
   useEffect(() => {
     const elements = content.current?.querySelectorAll('.c-image, .c-heading, .c-sub-heading, .c-bullet-list');
