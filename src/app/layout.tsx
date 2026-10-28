@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Oswald, Montserrat } from "next/font/google";
+import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./overrides.css";
 
-const oswald = Oswald({
+const oswald = Be_Vietnam_Pro({
   variable: "--oswald",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
 });
 
 const montserrat = Montserrat({
   variable: "--montserrat",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {
