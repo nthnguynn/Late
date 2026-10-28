@@ -15,9 +15,9 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ngaleader.com"),
-  title: "Tạ Thị Nga | Nga Leader",
+  title: "2 buổi miễn phí tìm hiểu Affiliate | Nga Leader",
   description:
-    "Website của Tạ Thị Nga – Thử thách 2 ngày Affiliate: xây dòng tiền 100 triệu/tháng chỉ bằng chiếc điện thoại.",
+    "Khám phá Affiliate từ cơ bản đến thực hành qua 2 buổi hướng dẫn miễn phí dành cho người mới.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

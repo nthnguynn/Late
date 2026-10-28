@@ -7,13 +7,13 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { fullName, phone, email } = body;
+    const { fullName, phone, email = '' } = body;
 
     if (typeof fullName !== 'string' || !fullName.trim() || fullName.length > 100 ||
         typeof phone !== 'string' || !/^(?:0|\+84)[0-9]{9}$/.test(phone.replace(/[\s.-]/g, '')) ||
-        typeof email !== 'string' || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        typeof email !== 'string' || email.length > 254 || (email !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
       return NextResponse.json(
-        { error: 'Vui lòng kiểm tra họ tên, số điện thoại Việt Nam và email.' },
+        { error: 'Vui lòng kiểm tra họ tên và số điện thoại Việt Nam.' },
         { status: 400 }
       );
     }
