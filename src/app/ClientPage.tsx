@@ -133,7 +133,6 @@ export default function ClientPage({ initialZaloLink = "" }: { initialZaloLink?:
             <div className={styles.heroNotes}>
               <span>✓ Dành cho người mới</span>
               <span>✓ Học qua điện thoại</span>
-              <span>✓ Không cam kết thu nhập</span>
             </div>
           </div>
 
@@ -173,10 +172,6 @@ export default function ClientPage({ initialZaloLink = "" }: { initialZaloLink?:
             <p>Trước đây, tôi nghĩ kiếm tiền online, AI hay Affiliate chỉ phù hợp với những người trẻ và giỏi máy tính. Tôi muốn có thêm thu nhập nhưng lo rằng mình sẽ không thể bắt đầu.</p>
             <p>Sau khi biết đến Affiliate Marketing — tiếp thị liên kết, tôi bắt đầu học từng bước: sử dụng điện thoại, xây dựng nội dung và làm quen với các công cụ hỗ trợ.</p>
             <p>Sau 60 ngày học hỏi và thực hành nghiêm túc, tôi đã tạo được nguồn thu nhập thứ 2 cho mình.</p>
-            <aside className={styles.disclaimer}>
-              <strong>Lưu ý về kết quả</strong>
-              <p>Đây là trải nghiệm cá nhân của tôi, không phải cam kết rằng mọi người đều sẽ đạt kết quả tương tự trong cùng một khoảng thời gian. Kết quả còn phụ thuộc vào kiến thức, thời gian, cách triển khai và mức độ nỗ lực của mỗi người.</p>
-            </aside>
             <blockquote>Bạn không nhất thiết phải giỏi công nghệ mới có thể bắt đầu. Bạn cần một phương pháp dễ hiểu, hướng dẫn phù hợp và sự kiên trì để từng bước thực hành.</blockquote>
           </div>
         </section>
