@@ -47,14 +47,6 @@ const suitableFor = [
   "Người mới muốn tìm hiểu Affiliate từ những khái niệm cơ bản.",
 ];
 
-const goalFactors = [
-  "Mức độ hiểu biết và khả năng thực hành.",
-  "Thời gian bạn có thể dành cho công việc.",
-  "Lĩnh vực và sản phẩm bạn lựa chọn.",
-  "Chất lượng nội dung và cách tiếp cận khách hàng.",
-  "Chính sách của từng chương trình Affiliate.",
-];
-
 function CheckList({ items }: { items: string[] }) {
   return (
     <ul className={styles.checkList}>
@@ -222,18 +214,8 @@ export default function ClientPage({ initialZaloLink = "" }: { initialZaloLink?:
           <div className={styles.audienceList}>{suitableFor.map((item, index) => <div key={item}><span>0{index + 1}</span><p>{item}</p></div>)}</div>
         </section>
 
-        <section className={`${styles.section} ${styles.goalSection}`}>
-          <div className={styles.goalTitle}><span className={styles.eyebrow}>06 · Kỳ vọng thực tế</span><h2>Mục tiêu<br /><em>30 triệu/tháng</em><br />có phù hợp với bạn?</h2></div>
-          <div className={styles.goalCopy}>
-            <p className={styles.leadParagraph}>30 triệu đồng mỗi tháng có thể là một mục tiêu tài chính, nhưng không phải mức thu nhập được bảo đảm cho tất cả mọi người.</p>
-            <p>Để tiến tới bất kỳ mục tiêu nào, bạn cần xây dựng kiến thức, kỹ năng, nội dung, hệ thống và tệp khách hàng phù hợp. Quá trình này có thể cần thời gian và sẽ phụ thuộc vào nhiều yếu tố:</p>
-            <CheckList items={goalFactors} />
-            <div className={styles.realityCheck}><strong>Không có kết quả tự động sau một đêm.</strong><p>2 buổi miễn phí giúp bạn hiểu mô hình và biết cách bắt đầu, còn kết quả thực tế phụ thuộc vào quá trình học hỏi và hành động của bạn.</p></div>
-          </div>
-        </section>
-
         <section className={`${styles.section} ${styles.startSection}`}>
-          <span className={styles.eyebrow}>07 · Bắt đầu bằng một bước nhỏ</span>
+          <span className={styles.eyebrow}>06 · Bắt đầu bằng một bước nhỏ</span>
           <h2>Kỹ năng có thể được<br /><em>rèn luyện từng bước.</em></h2>
           <p>Tôi từng lo lắng vì không biết công nghệ và không biết mình có làm được hay không. Nhưng việc bắt đầu từ những kiến thức cơ bản đã giúp tôi hiểu rằng kỹ năng có thể được rèn luyện từng bước.</p>
           <div className={styles.outcomes}><span>Hiểu đúng về mô hình</span><span>Biết những việc cần chuẩn bị</span><span>Nhận diện rủi ro và kỳ vọng thực tế</span><span>Xác định bước tiếp theo phù hợp</span></div>
