@@ -130,7 +130,7 @@ export default function ClientPage({ initialZaloLink = "" }: { initialZaloLink?:
 
           <div className={styles.heroVisual}>
             <div className={styles.portraitFrame}>
-              <Image src="/ta-thi-nga.jpg" alt="Chị Nga, người chia sẻ chương trình tìm hiểu Affiliate" width={800} height={1200} sizes="(max-width: 900px) 78vw, 420px" preload />
+              <Image src="/ta-thi-nga-hero-v3.webp" alt="Chị Nga, người chia sẻ chương trình tìm hiểu Affiliate" width={720} height={1280} sizes="(max-width: 900px) 78vw, 420px" preload />
             </div>
             <div className={styles.personalNote}>
               <span>Trải nghiệm cá nhân</span>
@@ -249,7 +249,6 @@ export default function ClientPage({ initialZaloLink = "" }: { initialZaloLink?:
           </div>
         </section>
 
-        <section className={styles.finalQuote}><blockquote>“Tôi không hứa giúp bạn kiếm 30 triệu sau 2 tháng. Tôi muốn chia sẻ cách bắt đầu, những kỹ năng cần học và các bước thực hành để bạn có thể tự đánh giá cơ hội tạo thêm thu nhập cho mình.”</blockquote><p>Nga — Đồng hành cùng bạn trong quá trình tìm hiểu Affiliate và phát triển kỹ năng kinh doanh online.</p></section>
       </main>
 
       <footer className={styles.footer}><a href="https://ngaleader.com">ngaleader.com</a><span>© 2026 Nga Leader</span></footer>
